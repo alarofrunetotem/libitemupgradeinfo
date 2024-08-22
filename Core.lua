@@ -58,6 +58,9 @@ local LE_ITEM_QUALITY_ARTIFACT=Enum.ItemQuality.Artifact
 local LE_ITEM_QUALITY_HEIRLOOM=Enum.ItemQuality.Heirloom
 do
 local oGetItemInfo=GetItemInfo
+local oGetItemClassInfo = C_Item and C_Item.GetItemClassInfo or GetItemClassInfo
+local oGetItemSubClassInfo = C_Item and C_Item.GetItemSubClassInfo or GetItemSubClassInfo
+
 lib.itemcache=lib.itemcache or
 	setmetatable({miss=0,tot=0},{
 		__index=function(table,key)
@@ -77,8 +80,8 @@ lib.itemcache=lib.itemcache or
 				if relic2 and relic2 ~= '' and not oGetItemInfo(relic2) then cacheIt = false end
 				if relic3 and relic3 ~= '' and not oGetItemInfo(relic3) then cacheIt = false end
 			end
-			cached.englishClass=C_Item.GetItemClassInfo(cached[12])
-			cached.englishSubClass=C_Item.GetItemSubClassInfo(cached[12],cached[13])
+			cached.englishClass=oGetItemClassInfo(cached[12])
+			cached.englishSubClass=oGetItemSubClassInfo(cached[12],cached[13])
 			if cacheIt then
 				rawset(table,key,cached)
 			end
